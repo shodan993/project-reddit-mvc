@@ -33,6 +33,10 @@ const Collection = (config) => {
 const Model = (config) => {
   const attributes = {}
 
+  const getAttributes = function () {
+    return attributes;
+  }
+
   let changeCallback = null
 
   const init = () => Object.assign(attributes, config);
@@ -59,6 +63,19 @@ const Model = (config) => {
   return {
     set,
     get,
-    change
+    change,
+    getAttributes
+  }
+};
+
+const View = (model, template) => {
+  const render = function () {
+    var attrs = model.getAttributes();
+
+    return template(attrs);
+  }
+
+  return {
+    render
   }
 };
